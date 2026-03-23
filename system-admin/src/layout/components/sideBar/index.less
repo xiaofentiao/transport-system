@@ -1,0 +1,109 @@
+// 侧边栏 - 统一暗色风格
+.side-bar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 54px);
+  font-family: 'Outfit', -apple-system, sans-serif;
+  background: #0f1419 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+
+  .ant-menu {
+    background: transparent !important;
+    border-inline-end: none !important;
+    padding: 8px;
+  }
+
+  // 统一：所有菜单项（含父级、子级）基础样式
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    margin: 2px 0 !important;
+    border-radius: 8px;
+    height: 40px;
+    line-height: 40px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 14px;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: rgba(255, 255, 255, 1) !important;
+    }
+  }
+
+  .ant-menu-item a {
+    color: inherit;
+  }
+
+  // 选中态 - 统一使用主题色
+  .ant-menu-item-selected {
+    background: rgba(20, 184, 166, 0.15) !important;
+    color: #14b8a6 !important;
+
+    a {
+      color: #14b8a6 !important;
+    }
+
+    &:hover {
+      background: rgba(20, 184, 166, 0.2) !important;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  // 父级菜单 - 强制覆盖 Ant Design 暗色主题的蓝色，与子项一致
+  .ant-menu-submenu {
+    > .ant-menu-submenu-title {
+      color: rgba(255, 255, 255, 0.7) !important;
+      .ant-menu-title-content a{
+        font-size: 14px!important;
+        color: rgba(255, 255, 255, 0.7) !important;
+      }
+
+      .ant-menu-submenu-arrow {
+        color: rgba(255, 255, 255, 0.7) !important;
+      }
+    }
+
+    &.ant-menu-submenu-open > .ant-menu-submenu-title {
+      color: rgba(255, 255, 255, 0.95) !important;
+      background: transparent !important;
+
+      .ant-menu-submenu-arrow {
+        color: rgba(255, 255, 255, 0.95) !important;
+      }
+    }
+
+    .ant-menu-sub {
+      background: transparent !important;
+    }
+
+    .ant-menu-item {
+      padding-inline-start: 32px !important;
+      height: 36px;
+      line-height: 36px !important;
+    }
+  }
+
+  // 覆盖 Ant Design 暗色 Menu：父级 submenu 始终用白色，不用 primary 蓝
+  .side-bar-menu.ant-menu-dark .ant-menu-submenu > .ant-menu-submenu-title {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  .side-bar-menu.ant-menu-dark .ant-menu-submenu-open > .ant-menu-submenu-title,
+  .side-bar-menu.ant-menu-dark .ant-menu-submenu-selected > .ant-menu-submenu-title {
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+  .side-bar-menu.ant-menu-dark .ant-menu-submenu-title .ant-menu-submenu-arrow {
+    color: inherit !important;
+  }
+}
+
+.side-bar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.side-bar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
