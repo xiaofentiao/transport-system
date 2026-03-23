@@ -43,10 +43,10 @@ export default defineConfig({
   },
   //开发环境配置
   server: {
-    port: 3020,
+    port: 3030,
     host: '0.0.0.0',
     open: true,
-    strictPort: true,
+    strictPort: false,
     proxy: {//代理配置
       '/sellmo-opt-backend': {
         //接口域名代理 

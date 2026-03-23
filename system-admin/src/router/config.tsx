@@ -25,6 +25,12 @@ export const subRoutes: AppRouteObject[] = [
 		element: lazyLoad(React.lazy(() => import('@/pages/home/index')))
 	},
 	{
+		path: 'form-modal-demo',
+		name: 'formModalDemo',
+		meta: { title: '表单弹窗演示', icon: 'fa-dashboard' },
+		element: lazyLoad(React.lazy(() => import('@/pages/form-modal-demo/index')))
+	},
+	{
 		path: 'settings',
 		name: 'settings',
 		meta: { title: '系统设置', icon: 'fa-cogs' },
