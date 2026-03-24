@@ -1,0 +1,1 @@
+export const PROJECT_THEME_COLOR = '#14b8a6';

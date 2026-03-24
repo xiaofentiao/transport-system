@@ -1,0 +1,161 @@
+// 船运 / 物料运输 场景登录页
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+
+  // 海洋深蓝渐变 + 水波纹质感
+  background: linear-gradient(165deg, #0c1929 0%, #0f2847 35%, #143d6b 70%, #0d2137 100%);
+
+  // 微妙波浪纹理
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(120deg, rgba(20, 184, 166, 0.03) 1px, transparent 1px),
+      linear-gradient(60deg, rgba(20, 184, 166, 0.03) 1px, transparent 1px);
+    background-size: 60px 52px;
+    pointer-events: none;
+  }
+
+  // 底部深色遮罩
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+    pointer-events: none;
+  }
+}
+
+.login-card {
+  width: 400px;
+  padding: 40px 36px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+  animation: loginCardIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes loginCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0c1929;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px 0;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+// 船运图标装饰
+.login-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  padding: 10px;
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+  }
+}
+
+.login-page {
+  .ant-form-item-label > label {
+    font-weight: 500;
+    color: #334155;
+  }
+
+  .ant-input,
+  .ant-input-password {
+    border-radius: 10px;
+    border-color: #e2e8f0;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      border-color: #94a3b8;
+    }
+
+    &:focus,
+    &.ant-input-focused {
+      border-color: #14b8a6;
+      box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.15);
+    }
+  }
+
+  .ant-btn-primary {
+    height: 44px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+    border: none;
+    box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.45);
+    }
+  }
+
+  .login-forgot {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    color: #64748b;
+    font-size: 13px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #14b8a6;
+    }
+  }
+}
+
+.captcha-img {
+  height: 36px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
