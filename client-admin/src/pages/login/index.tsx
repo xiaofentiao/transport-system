@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from 'antd';
+import { App, Button, Form, Input } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer, mime = 'image/png') {
 }
 
 export default function Login() {
+  const { message } = App.useApp();
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);

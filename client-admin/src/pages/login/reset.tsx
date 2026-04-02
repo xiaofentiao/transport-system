@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from 'antd';
+import { App, Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ import './index.less';
 import api from '@/api';
 
 export default function ResetPassword() {
+  const { message } = App.useApp();
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);

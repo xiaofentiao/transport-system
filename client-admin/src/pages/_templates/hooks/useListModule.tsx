@@ -4,14 +4,23 @@ import type { DefaultOptionType } from 'antd/es/select';
 import { useTable } from '@/hook/useTable';
 import type { ResponseConfig } from '@/type/common';
 import { formatDate } from '@/utils';
-import type { TemplateListItem, TemplateListSearchParams } from '../types';
+import type { TemplateListItem, TemplateListSearchParams } from '../types'
+
+/**
+ * 过滤仅由空白字符串构成的查询字段，避免误传 "" 给后端。
+ */
+function omitTrimmedEmptyStrings<T extends Record<string, unknown>>(obj: T): T {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => !(typeof v === 'string' && v.trim() === '')),
+  ) as T
+}
 
 /**
  * 模板用假接口：用于本地演示列表页能力。
  * 业务接入时：替换为真实接口（例如 api.xxx.list），并同步调整 processData 的取值路径。
  */
 async function fakeListApi(_params: TemplateListSearchParams): Promise<ResponseConfig> {
-  console.log('api req params', _params)
+  void _params
   return {
     code: 200,
     message: 'ok',
@@ -27,9 +36,8 @@ async function fakeListApi(_params: TemplateListSearchParams): Promise<ResponseC
       ],
       total: 1,
     },
-  };
+    }
 }
-
 
 /**
  * 通用“搜索 + 表格 + 详情弹窗（可选）”列表页模板 Hook。
@@ -112,18 +120,12 @@ export const useListModule = () => {
    * - 过滤空字符串（避免把 "" 传给后端导致误筛选）
    */
   const handleSearch = useCallback(
-    (values: any) => {
-      console.log(values, 'handleSearch')
-      const cur = { ...searchParams, pageNum: 1 } as any;
-
-      const merged = { ...cur, ...values };
-      const queryObj = Object.fromEntries(
-        Object.entries(merged).filter(([_, v]) => !(typeof v === 'string' && v.trim() === ''))
-      );
-      baseHandleSearch(queryObj);
+    (values: Record<string, unknown>) => {
+      const merged = { ...searchParams, pageNum: 1, ...values } as Record<string, unknown>
+      baseHandleSearch(omitTrimmedEmptyStrings(merged))
     },
-    [baseHandleSearch, searchParams]
-  );
+    [baseHandleSearch, searchParams],
+  )
 
   /**
    * 打开详情弹窗：将当前行缓存为 info，供弹窗展示。

@@ -1,10 +1,12 @@
+import type { ReactElement, ReactNode } from 'react'
+import { useEffect, useMemo } from 'react'
 import { ConfigProvider, Layout, Menu, type MenuProps } from 'antd'
-import { useEffect, useMemo, type ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useShallow } from 'zustand/react/shallow'
 
-import { SvgIcon } from '@/components/svgIcon';
-import { useAppStore } from '@/store/app';
-import { useRouteStore } from '@/store/route';
+import { SvgIcon } from '@/components/svgIcon'
+import { useAppStore } from '@/store/app'
+import { useRouteStore } from '@/store/route'
 import type { MenuItem as AppMenuItem } from '@/type/routes'
 
 import './index.less'
@@ -33,12 +35,16 @@ function navTo(path: string, title: string) {
   return <Link to={path}>{title}</Link>
 }
 
-
-export default function SideBar() {
-  const activeIdName = useAppStore((s) => s.activeId)
-  const setActiveId = useAppStore((s) => s.setActiveId)
+/** 侧栏导航：由路由 store 生成菜单并同步当前路径 */
+export default function SideBar(): ReactElement {
+  const { collapsed: isColl, activeId: activeIdName, setActiveId } = useAppStore(
+    useShallow((s) => ({
+      collapsed: s.collapsed,
+      activeId: s.activeId,
+      setActiveId: s.setActiveId,
+    })),
+  )
   const location = useLocation()
-  const isColl = useAppStore((s) => s.collapsed)
   const menuList = useRouteStore((s) => s.authMenus)
 
   const userMenus: MenuProps['items'] = useMemo(() => {
@@ -88,5 +94,5 @@ export default function SideBar() {
         />
       </ConfigProvider>
     </Sider>
-  );
+  )
 }

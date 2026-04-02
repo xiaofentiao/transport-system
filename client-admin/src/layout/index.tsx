@@ -1,19 +1,21 @@
-import { Layout } from 'antd';
+import type { ReactElement } from 'react'
+import { Layout } from 'antd'
 
-import Theader from './components/header';
-import Main from './components/main';
-import SideBar from './components/sideBar';
+import AppHeader from './components/header'
+import Main from './components/main'
+import SideBar from './components/sideBar'
 
-import './index.less';
+import './index.less'
 
-export default function LayOut() {
+/** 后台主布局：顶栏 + 侧栏 + 内容区 */
+export default function LayOut(): ReactElement {
   return (
     <Layout className="contents">
-      <Theader />
+      <AppHeader />
       <Layout className="site-layout">
         <SideBar />
         <Main />
       </Layout>
     </Layout>
-  );
+  )
 }

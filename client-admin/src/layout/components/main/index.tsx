@@ -1,8 +1,11 @@
-import { Layout } from 'antd';
-import { Outlet } from 'react-router-dom';
-const { Content } = Layout;
+import type { ReactElement } from 'react'
+import { Layout } from 'antd'
+import { Outlet } from 'react-router-dom'
 
-export default function Main() {
+const { Content } = Layout
+
+/** 主内容区：渲染子路由 Outlet */
+export default function Main(): ReactElement {
   return (
     <Content
       style={{
@@ -14,5 +17,5 @@ export default function Main() {
         <Outlet />
       </div>
     </Content>
-  );
+  )
 }

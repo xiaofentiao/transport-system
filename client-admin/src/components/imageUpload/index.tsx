@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Upload, Modal, message } from 'antd';
+import { App, Upload, Modal } from 'antd';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import React, { useMemo, useState } from 'react';
 import './index.less';
@@ -20,6 +20,7 @@ function toUploadFile(url: string, uid?: string): UploadFile {
 }
 
 export default function ImageUpload(props: ImageUploadProps) {
+  const { message } = App.useApp();
   const { value, onChange, request, multiple = false, maxCount = multiple ? 9 : 1, accept = 'image/*', maxSizeMB = 5, disabled } = props;
   const realMaxCount = multiple ? maxCount : 1;
   const initialList: UploadFile[] = useMemo(() => {

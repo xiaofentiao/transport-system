@@ -1,7 +1,8 @@
-import { message } from 'antd'
 import axios from 'axios'
 
 import options from './config'
+
+import { getAntdMessage } from '@/utils/antdMessage'
 
 import { LOCAL_KEYS } from '@/type/local_keys_enum'
 import storage from '@/utils/storage'
@@ -26,7 +27,7 @@ instance.interceptors.request.use(
     }
     const loading = config?.loading ?? false
     if (loading) {
-      closeLoading = message.loading(config?.loadingText ?? '加载中...', 0)
+      closeLoading = getAntdMessage().loading(config?.loadingText ?? '加载中...', 0)
     }
     const token = storage.getCache<string>(LOCAL_KEYS.TOKEN) ?? "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzY4ODc0NjY0LCJleHAiOjE3Njg4ODE4NjR9.GIwEplS1F7l9jCDD-3CHDj2t75aRJx4SkDTg8EXx9veQVtt5eNPDPD4v0kLGgAQMdUl3D1C9x9A-AKBVOz8FQQ"
     if (config.headers && 'set' in config.headers) {
@@ -72,13 +73,13 @@ instance.interceptors.response.use(
         isRedirectingToLogin = true
         storage.deleteCache(LOCAL_KEYS.TOKEN)
         storage.deleteCache(LOCAL_KEYS.USER_INFO)
-        message.error('登录失效，正在跳转…', 2)
+        getAntdMessage().error('登录失效，正在跳转…', 2)
         const loginUrl = new URL(`${import.meta.env.BASE_URL}login`, window.location.origin)
         window.location.assign(loginUrl.toString())
       }
       return Promise.reject(new Error('Unauthorized'))
     } else if (code !== 200) {
-      message.error(response.data.message ?? '系统错误')
+      getAntdMessage().error(response.data.message ?? '系统错误')
     }
 
     return response.data
@@ -91,13 +92,13 @@ instance.interceptors.response.use(
 
     const response = error?.response
     if (!response) {
-      message.error('网络异常，请检查网络连接')
+      getAntdMessage().error('网络异常，请检查网络连接')
       return Promise.reject(error)
     }
 
     const status = response.status
     if (status >= 500) {
-      message.error('服务异常，请稍后重试')
+      getAntdMessage().error('服务异常，请稍后重试')
     }
     // const { code, data } = response;
     // if (code === 401) {

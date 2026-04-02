@@ -226,7 +226,7 @@ export function FormModal(props: FormModalProps) {
       open={visible}
       onOk={isViewMode ? undefined : handleOk}
       onCancel={handleCancel}
-      destroyOnClose
+      destroyOnHidden
       {...modalButtonsConfig}
       afterOpenChange={(open) => {
         if (open) {

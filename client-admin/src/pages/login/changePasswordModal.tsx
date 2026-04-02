@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Button, message } from 'antd';
+import { App, Modal, Form, Input, Button } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import api from '@/api';
@@ -29,6 +29,7 @@ function passwordStrongEnough(pwd: string) {
 }
 
 export default function ChangePasswordModal(props: ChangePasswordModalProps) {
+  const { message } = App.useApp();
   const { open, onOpenChange, onSuccess, title = '修改密码', width = 520, okText = '确认', cancelText = '取消' } = props;
   const ctrl = useControlledOpen(open);
   const realOpen = open === undefined ? ctrl.inner : open;
@@ -69,7 +70,7 @@ export default function ChangePasswordModal(props: ChangePasswordModalProps) {
   ), []);
 
   return (
-    <Modal title={title} open={realOpen} onCancel={handleCancel} footer={null} width={width} destroyOnClose>
+    <Modal title={title} open={realOpen} onCancel={handleCancel} footer={null} width={width} destroyOnHidden>
       <Form form={form} layout="vertical" requiredMark={false}>
         <Form.Item name="oldPassword" label="旧密码" rules={[{ required: true, message: '请输入旧密码' }]}> 
           <Input.Password placeholder="请输入旧密码" allowClear />

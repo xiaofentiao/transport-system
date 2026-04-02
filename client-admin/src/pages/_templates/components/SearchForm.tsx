@@ -1,7 +1,7 @@
-import { DatePicker, Form, Input, Select } from 'antd';
-import type { DefaultOptionType } from 'antd/es/select';
+import { DatePicker, Form, Input, Select } from 'antd'
+import type { DefaultOptionType } from 'antd/es/select'
 
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 export type SearchFormProps = {
   /**
@@ -18,7 +18,7 @@ export type SearchFormProps = {
  * - 提交/重置由外层 Tables 统一处理
  */
 export function SearchForm(props: SearchFormProps) {
-  const { statusOptions } = props;
+  const { statusOptions } = props
 
   return (
     <>
@@ -42,5 +42,5 @@ export function SearchForm(props: SearchFormProps) {
         />
       </Form.Item>
     </>
-  );
+  )
 }

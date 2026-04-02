@@ -30,7 +30,7 @@ export function EditModal(props: EditModalProps) {
       open={visible}
       onOk={handleOk}
       onCancel={handleCancel}
-      destroyOnClose
+      destroyOnHidden
       afterOpenChange={(open) => {
         if (open && info && mode === 'edit') {
           form.setFieldsValue({

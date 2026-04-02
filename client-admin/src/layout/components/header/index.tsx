@@ -1,25 +1,26 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout, Space } from "antd";
+import { useCallback, type ReactElement } from 'react'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { Layout, Space } from 'antd'
+import { useShallow } from 'zustand/react/shallow'
 
-import { useAppStore } from "@/store/app";
+import { useAppStore } from '@/store/app'
 
-import Avatar from "./components/avatar";
-import CustomBreadcrumb from "../breadcrumb";
+import Avatar from './components/avatar'
+import CustomBreadcrumb from '../breadcrumb'
 
 import './index.less'
 
-const { Header } = Layout;
+const { Header } = Layout
 
+/** 顶栏：标题、侧栏折叠、面包屑与用户信息 */
+export default function AppHeader(): ReactElement {
+  const { collapsed: isColl, setCollapsed: setColl } = useAppStore(
+    useShallow((s) => ({ collapsed: s.collapsed, setCollapsed: s.setCollapsed })),
+  )
 
-
-export default function THeader() {
-
-  const isColl = useAppStore((s) => s.collapsed)
-  const setColl = useAppStore((s) => s.setCollapsed)
-
-  const toggle = () => {
-    setColl(!isColl);
-  };
+  const toggle = useCallback(() => {
+    setColl(!isColl)
+  }, [isColl, setColl])
 
   const TriggerIcon = isColl ? MenuUnfoldOutlined : MenuFoldOutlined
 
@@ -34,6 +35,5 @@ export default function THeader() {
         <Avatar />
       </Space>
     </Header>
-  );
-
+  )
 }

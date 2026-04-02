@@ -54,13 +54,9 @@ function Tables(props: PropsType, ref: Ref<TablesRef>) {
     showSearchArea = true,
     onReset,
     formParams,
-  } = props;
-
-
-
+  } = props
 
   const onFinish = (values: any) => {
-    console.log(values, 'value')
     onSearch(values);
   };
 

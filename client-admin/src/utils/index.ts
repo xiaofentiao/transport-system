@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { getAntdMessage } from '@/utils/antdMessage'
 
 /**
  * 根据参数名称获取 URL 上的参数值
@@ -84,8 +84,6 @@ export function base64ToFile(base64: string, fileName: string) {
     type: type,
   });
 
-  console.log(file, 'filefilefile');
-  // 将File文件对象返回给方法的调用者
   return file;
 }
 
@@ -137,17 +135,13 @@ export const downloadExcel = (excelData: string, contentType: string, fileName: 
  * @param className 目标元素的类名，默认为 "text-overflow-five"
  */
 export function textOverflowMore(className = "text-overflow-five") {
-  // 获取特定样式的标签
   let elList: any = document.getElementsByClassName(className);
-  console.log(elList, 'elListelListelListelList')
   // 遍历所有具有特定样式名的元素
   for (let i in elList) {
     let el = elList[i];
     let text = el.innerHTML;
     // 遍历元素的innerHTML内容，当元素的offsetHeight小于scrollHeight（超出元素的高度溢出换行）时，
     // 设置溢出隐藏（overflow = "hidden"）
-    // 将末尾的三个文字用...取代，同时跳出for循环
-    console.log(el.scrollHeight, el.offsetHeight, 'el.scrollHeight, el.offsetHeight')
     if (!text || !text.length) return;
     for (let i = 0; i <= text.length; i++) {
       el.innerHTML = text.substr(0, i);
@@ -201,9 +195,10 @@ export function numberToCurrencyNo(value: number) {
  * 复制文本到剪贴板
  * @param text 需要复制的文本
  */
+/** 复制文本到剪贴板并提示成功（使用 App 上下文内的 message，与主题一致） */
 export function copyToClipboard(text: string) {
   navigator.clipboard.writeText(text).then(function() {
-    message.success('复制成功')
+    getAntdMessage().success('复制成功')
   }).catch(function(err) {
     console.error('复制失败: ', err);
   });
